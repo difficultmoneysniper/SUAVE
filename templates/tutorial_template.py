@@ -27,10 +27,10 @@ def main():
     mission = define_mission(vehicle)
     
     # evaluate the mission
-    results = evalute_mission(vehicle,mission)
+    results = evaluate_mission(vehicle,mission)
     
     # plot results
-    post_process(vehicle,misison,results)
+    post_process(vehicle,mission,results)
     
     return
 
