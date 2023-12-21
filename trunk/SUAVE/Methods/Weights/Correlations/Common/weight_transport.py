@@ -199,6 +199,7 @@ def empty_weight(vehicle, settings=None, method_type='New SUAVE'):
                 wt_prop = 0.
             prop.mass_properties.mass = wt_prop
             wt_prop_total += wt_prop
+            wt_prop_total += vehicle.mass_properties.fuel_system_mass
 
     # Payload Weight
     if method_type == 'FLOPS Simple' or method_type == 'FLOPS Complex':
@@ -380,8 +381,11 @@ def empty_weight(vehicle, settings=None, method_type='New SUAVE'):
     output.empty                = output.structures.total + output.propulsion_breakdown.total + output.systems_breakdown.total
     output.operating_empty      = output.empty + output.operational_items.total
     output.zero_fuel_weight     = output.operating_empty + output.payload_breakdown.total
-    output.fuel                 = vehicle.mass_properties.max_takeoff - output.zero_fuel_weight
-    output.max_takeoff          = vehicle.mass_properties.max_takeoff
+    #output.fuel                 = vehicle.mass_properties.max_takeoff - output.zero_fuel_weight
+    #output.max_takeoff          = vehicle.mass_properties.max_takeoff
+    output.fuel                 = vehicle.mass_properties.fuel
+    output.max_takeoff          = output.zero_fuel_weight + output.fuel
+    output.takeoff              = output.max_takeoff
 
     control_systems         = SUAVE.Components.Physical_Component()
     electrical_systems      = SUAVE.Components.Physical_Component()

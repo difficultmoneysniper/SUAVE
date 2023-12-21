@@ -364,7 +364,8 @@ class Thrust(Energy_Component):
         mdhc                        = mdot_core/ (np.sqrt(Tref/total_temperature_reference)*(total_pressure_reference/Pref))
 
         #pack outputs
-        self.mass_flow_rate_design               = mdot_core
+        #self.mass_flow_rate_design               = mdot_core
+        self.outputs.core_mass_flow_rate = mdot_core
         self.compressor_nondimensional_massflow  = mdhc
 
         return
@@ -425,8 +426,9 @@ class Thrust(Energy_Component):
         mdhc                        = mdot_core/ (np.sqrt(Tref/total_temperature_reference)*(total_pressure_reference/Pref)) 
         
         #pack outputs 
-        self.mass_flow_rate_design               = mdot_core 
-        self.compressor_nondimensional_massflow  = mdhc 
+        self.mass_flow_rate_design               = mdot_core
+        #self.core_mass_flow_rate = mdot_core
+        self.compressor_nondimensional_massflow  = mdhc
         
         return
     

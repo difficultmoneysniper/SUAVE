@@ -31,10 +31,13 @@ def compute_mission_center_of_gravity(vehicle, mission_fuel_weight):
     """  
 
     mzf_cg     = vehicle.mass_properties.zero_fuel_center_of_gravity
+    #print(vehicle.mass_properties.breakdown)
     mzf_weight = vehicle.mass_properties.max_zero_fuel
+    #mzf_weight = vehicle.mass_properties.breakdown.zero_fuel_weight
     fuel       = vehicle.fuel
     fuel_cg    = vehicle.fuel.mass_properties.center_of_gravity
     
-    cg         =((mzf_cg)*mzf_weight+(fuel_cg+fuel.origin)*mission_fuel_weight)/(mission_fuel_weight+mzf_weight)
-   
+    #cg         =((mzf_cg)*mzf_weight+(fuel_cg+fuel.origin)*mission_fuel_weight)/(mission_fuel_weight+mzf_weight)
+    cg = ((mzf_cg) * mzf_weight + (fuel_cg) * mission_fuel_weight) / (mission_fuel_weight + mzf_weight)
+
     return cg

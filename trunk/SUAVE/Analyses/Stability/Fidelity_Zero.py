@@ -152,10 +152,10 @@ class Fidelity_Zero(Stability):
         # Static Stability Methods
         stability.static.Cm_alpha,stability.static.Cm0, stability.static.CM  = taw_cmalpha(geometry,mach,conditions,configuration)
 
-        if 'vertical_stabilizer' in geometry.wings:
-            stability.static.Cn_beta  = taw_cnbeta(geometry,conditions,configuration)
-        else:
-            stability.static.Cn_beta = np.zeros_like(mach)
+        #if 'vertical_stabilizer' in geometry.wings:
+        #    stability.static.Cn_beta  = taw_cnbeta(geometry,conditions,configuration)
+        #else:
+        #    stability.static.Cn_beta = np.zeros_like(mach)
 
         # calculate the static margin
         stability.static.static_margin = -stability.static.Cm_alpha/conditions.lift_curve_slope

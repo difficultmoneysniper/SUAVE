@@ -93,5 +93,5 @@ class Process(ContainerOrdered):
                 Properties Used:
                 N/A
             """                        
-        return self.evaluate(*args,**kwarg) 
+        return self.evaluate(*args,**kwarg)
     

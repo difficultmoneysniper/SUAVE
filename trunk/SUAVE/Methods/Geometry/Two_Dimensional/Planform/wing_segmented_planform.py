@@ -16,7 +16,7 @@ import numpy as np
 #  Methods
 # ----------------------------------------------------------------------
 
-def wing_segmented_planform(wing, overwrite_reference = False):
+def wing_segmented_planform(wing, overwrite_reference = True):
     """Computes standard wing planform values.
     
     Assumptions:
@@ -159,10 +159,10 @@ def wing_segmented_planform(wing, overwrite_reference = False):
     total_length = np.tan(le_sweep_total)*semispan + chords[-1]*RC
     
     # Pack stuff
-    if overwrite_reference:
-        wing.areas.reference         = ref_area
-        wing.areas.wetted            = wet_area
-        wing.aspect_ratio            = AR
+    #if overwrite_reference:
+    wing.areas.reference         = ref_area
+    wing.areas.wetted            = wet_area
+    wing.aspect_ratio            = AR
 
     wing.spans.total                    = total_len
     wing.chords.mean_geometric          = mgc
@@ -181,7 +181,7 @@ def wing_segmented_planform(wing, overwrite_reference = False):
     
     return wing
  
-def segment_properties(wing,update_wet_areas=False,update_ref_areas=False):
+def segment_properties(wing,update_wet_areas=True,update_ref_areas=True):
     """Computes detailed segment properties. These are currently used for parasite drag calculations.
 
     Assumptions:
@@ -274,11 +274,11 @@ def segment_properties(wing,update_wet_areas=False,update_ref_areas=False):
             total_wetted_area    = total_wetted_area + Swet_seg
             total_reference_area = total_reference_area + Sref_seg 
     
-    if wing.areas.reference==0. or update_ref_areas:
-        wing.areas.reference = total_reference_area
+    #if wing.areas.reference==0. or update_ref_areas:
+    wing.areas.reference = total_reference_area
         
-    if wing.areas.wetted==0. or update_wet_areas:
-        wing.areas.wetted    = total_wetted_area
+    #if wing.areas.wetted==0. or update_wet_areas:
+    wing.areas.wetted    = total_wetted_area
         
     return wing
 

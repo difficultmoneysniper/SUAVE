@@ -79,6 +79,7 @@ def turbofan_sizing(turbofan,mach_number = None, altitude = None, delta_isa = 0,
     thrust                    = turbofan.thrust
     bypass_ratio              = turbofan.bypass_ratio
     number_of_engines         = turbofan.number_of_engines
+    turbofan.design_thrust = thrust.total_design
     
     #Creating the network by manually linking the different components
     
@@ -193,12 +194,17 @@ def turbofan_sizing(turbofan,mach_number = None, altitude = None, delta_isa = 0,
     thrust.inputs.flow_through_fan                         =  bypass_ratio/(1.+bypass_ratio) #scaled constant to turn on fan thrust computation     
 
     #compute the thrust
-    thrust.size(conditions)
+    #thrust.size(conditions)
+    #thrust(conditions)
+    s = Data()
+    s.conditions = conditions
+    turbofan.size(s)
+    turbofan(s)
     
     #determine geometry; 
-    mass_flow         = thrust.mass_flow_rate_design
-    mass_flow_fan     = mass_flow*bypass_ratio
-    
+    #mass_flow         = thrust.mass_flow_rate_design
+    #mass_flow = thrust.outputs.core_mass_flow_rate
+    #mass_flow_fan     = mass_flow*bypass_ratio
  
  
     U0                = conditions.freestream.velocity
@@ -254,9 +260,11 @@ def turbofan_sizing(turbofan,mach_number = None, altitude = None, delta_isa = 0,
 
     state_sls            = Data()
     state_sls.numerics   = Data()
-    state_sls.conditions = conditions_sls   
+    state_sls.conditions = conditions_sls
+    #turbofan.size(state_sls)
     results_sls          = turbofan.evaluate_thrust(state_sls)
     
     turbofan.sealevel_static_thrust = results_sls.thrust_force_vector[0,0] / number_of_engines
+    #turbofan.sealevel_static_thrust = 100
   
  

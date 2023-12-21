@@ -200,24 +200,24 @@ class Nexus(Data):
                 indices.append(ii)        
         iqconstraints = np.delete(constraints,indices,axis=0)
     
-        if iqconstraints == []:
-            scaled_constraints = []
-        else:
+        #if iqconstraints == []:
+        #    scaled_constraints = []
+        #else:
 
             # get constaint values 
-            constraint_values = help_fun.get_values(self,iqconstraints,aliases)          
+        constraint_values = help_fun.get_values(self,iqconstraints,aliases)
             
             # scale bounds 
-            scaled_bnd_constraints  = help_fun.scale_const_bnds(iqconstraints)
+        scaled_bnd_constraints  = help_fun.scale_const_bnds(iqconstraints)
             
             # scale constaits 
-            scaled_constraints = help_fun.scale_const_values(iqconstraints,constraint_values)
+        scaled_constraints = help_fun.scale_const_values(iqconstraints,constraint_values)
             
             # determine difference between bounds and constaints 
-            constraint_evaluations = scaled_constraints  - scaled_bnd_constraints
+        constraint_evaluations = scaled_constraints  - scaled_bnd_constraints
             
             # coorect constaints based on sign 
-            constraint_evaluations[iqconstraints[:,1]=='<'] = -constraint_evaluations[iqconstraints[:,1]=='<']
+        constraint_evaluations[iqconstraints[:,1]=='<'] = -constraint_evaluations[iqconstraints[:,1]=='<']
             
         return constraint_evaluations       
     
@@ -254,11 +254,11 @@ class Nexus(Data):
                 indices.append(ii)
         eqconstraints = np.delete(constraints,indices,axis=0)
     
-        if eqconstraints == []:
-            scaled_constraints = []
-        else:
-            constraint_values  = help_fun.get_values(self,eqconstraints,aliases)
-            scaled_constraints = help_fun.scale_const_values(eqconstraints,constraint_values) - help_fun.scale_const_bnds(eqconstraints)
+        #if eqconstraints == []:
+            #scaled_constraints = []
+        #else:
+        constraint_values  = help_fun.get_values(self,eqconstraints,aliases)
+        scaled_constraints = help_fun.scale_const_values(eqconstraints,constraint_values) - help_fun.scale_const_bnds(eqconstraints)
 
         return scaled_constraints   
         
